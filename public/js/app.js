@@ -2400,7 +2400,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    formSubmit: function formSubmit() {},
+    formSubmit: function formSubmit() {
+      axios.post('/api/employee', this.form).then(function (result) {
+        // this.$router.push({name:'all-employee'})
+        console.log(result);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     upload: function upload(event) {
       var _this = this;
 
@@ -2435,7 +2442,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      employees: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('api/employee').then(function (result) {
+      _this.employees = result.data;
+      console.log(_this.employees);
+    })["catch"](function (err) {});
+  }
+});
 
 /***/ }),
 
@@ -40016,9 +40068,69 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("section", { staticClass: "section" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card card-primary" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "table table-striped table-inverse table-responsive"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.employees, function(employee) {
+                    return _c("tr", { key: employee.id }, [
+                      _c("td", [_vm._v(_vm._s(employee.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.email))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.address))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.salary))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.join_date))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.nid))])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-inverse" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Address")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Salary")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Join Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("NID")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

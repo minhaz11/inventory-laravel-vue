@@ -79,7 +79,12 @@
         },
         methods: {
             formSubmit(){
-
+                axios.post('/api/employee',this.form).then((result) => {
+                    // this.$router.push({name:'all-employee'})
+                    console.log(result);
+                }).catch((err) => {
+                    console.log(err);
+                });
             },
             upload(event){
                 let file = event.target.files[0];

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
@@ -35,7 +37,40 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $request
+      
+
+       $val = Validator::make($request->all(),[
+        'name' => 'required',
+        'email' => 'email|required',
+        'address' =>'required',
+        'nid' => 'required'
+       ]);
+
+       if ($val->fails()) {
+           return response()->json($val->errors());
+       }
+
+       if($request->image){
+           $position = strpos($request->image,';');
+           $sub = substr($request->image,0,$position);
+           $ext = explode('/',$sub)[1];
+           $image = time().'.'.$ext;
+           $img = Image::make($request->image)->resize(300,300);
+           $path =  public_path('/images/');
+           $img->save( $path.$image);
+       }
+
+       Employee::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'address' => $request->address,
+        'nid' => $request->nid,
+        'salary' => $request->salary,
+        'join_date' => $request->join_date,
+        'image' => $image
+       ]);
+
+       return response()->json(['success'=>'Uploaded']);
     }
 
     /**
